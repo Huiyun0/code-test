@@ -1,23 +1,71 @@
-import { Flex, Box, Grid } from '@rebass/grid';
+import { Flex } from '@rebass/grid';
 import Paragraph from 'shared-components/Typography/Paragraph';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyledBox, StyledCategoryShows, TextWrapper } from './styled';
-import Image from '../../../../shared-components/Image';
-import spacing from 'styling/spacing';
 import Card from '../Card'
 import styled from 'styled-components';
-import SortButton from '../../../../shared-components/SortButton';
+import screen from '../../../../../src/styling/screen';
+import useWindowSize from '../../../../hooks/useWindowSize'
 
-const StyledFlex = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+const StyledGrid = styled.div`
   margin-top: 25px;
-  flex: auto;
+  display: grid;
+
+  ${screen.mobile} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  ${screen.tablet} {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  ${screen.laptop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  ${screen.desktop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  
+  grid-auto-flow: row;
+  grid-gap: 15px;
 `;
 
+
 function CategoryShows({ shows, description }) {
+  const {width, height} = useWindowSize();
+
+  const [customSize, setCustomSize] = useState({
+    customWidth: 0,
+    customHeight: 0
+  })
+
+  useEffect(() => {
+    if (width <= 640) {
+      // screen.mobile
+      setCustomSize({
+        customWidth: (width - 60) / 2,
+        customHeight: (width - 60) / 2
+      })
+    } else if (width > 640 && width <= 832) {
+      // screen.tablet
+      setCustomSize({
+        customWidth: (width - 60) / 3,
+        customHeight: (width - 60) / 3
+      })
+    } else if (width > 832 && width <= 1024) {
+      // screen.laptop
+      setCustomSize({
+        customWidth: (width - 100) / 4,
+        customHeight: (width - 100) / 4
+      })
+    } else if (width > 1024) {
+      // screen.deskop
+      setCustomSize({
+        customWidth: (width - 100) / 5 > 255 ? 255 : (width - 100) / 5,
+        customHeight: (width - 100) / 5 > 250 ? 255 : (width - 100) / 5
+      })
+    }
+  }, [width, height])
 
   return (
     <StyledCategoryShows>
@@ -29,13 +77,13 @@ function CategoryShows({ shows, description }) {
           </TextWrapper>
           )}
         </StyledBox>
-        <StyledFlex>
+        <StyledGrid>
           {shows.map((show) => {
             return (
-              <Card show={show}/>
+              <Card show={show} width={customSize.customWidth} height={customSize.customHeight}/>
             )
           })}
-        </StyledFlex>
+        </StyledGrid>
       </Flex>
     </StyledCategoryShows>
   );

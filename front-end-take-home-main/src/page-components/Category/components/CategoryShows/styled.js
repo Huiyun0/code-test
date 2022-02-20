@@ -14,6 +14,7 @@ export const StyledCategoryShows = styled(Box)`
 `;
 
 export const StyledBox = styled(Box)`
+   margin-top: 20px;  
    display: flex;
    max-width: 100%;
 

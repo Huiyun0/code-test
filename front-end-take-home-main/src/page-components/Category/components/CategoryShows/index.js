@@ -55,14 +55,14 @@ function CategoryShows({ shows, description }) {
     } else if (width > 832 && width <= 1024) {
       // screen.laptop
       setCustomSize({
-        customWidth: (width - 100) / 4,
-        customHeight: (width - 100) / 4
+        customWidth: (width - 76) / 4,
+        customHeight: (width - 76) / 4
       })
     } else if (width > 1024) {
       // screen.deskop
       setCustomSize({
-        customWidth: (width - 100) / 5 > 255 ? 255 : (width - 100) / 5,
-        customHeight: (width - 100) / 5 > 250 ? 255 : (width - 100) / 5
+        customWidth: (width - 90) / 5 > 255 ? 255 : (width - 90) / 5,
+        customHeight: (width - 90) / 5 > 250 ? 255 : (width - 90) / 5
       })
     }
   }, [width, height])

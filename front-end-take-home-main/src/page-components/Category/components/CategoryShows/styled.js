@@ -33,3 +33,23 @@ export const TextWrapper = styled.div`
     margin-bottom: 0;
   }
 `;
+
+export const StyledGrid = styled.div`
+  margin-top: 25px;
+  display: grid;
+  width: 100%;
+  ${screen.mobile} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  ${screen.tablet} {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  ${screen.laptop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  ${screen.desktop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  grid-gap: 15px;
+`;
